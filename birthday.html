@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday My Love</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffe6f0, #fff);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 1.4rem;
+      padding: 1em;
+      text-align: center;
+      color: #333;
+    }
+    #message {
+      border-right: 2px solid #ff6699;
+      white-space: pre-wrap;
+      overflow: hidden;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+    .heart {
+      color: #ff3366;
+    }
+  </style>
+</head>
+<body>
+  <div id="message"></div>
+
+  <script>
+    const text = `Happy Birthday my love 💖
+
+Every day with you feels like a gift, but today is extra special because it's the day the world got you. 
+
+Thank you for filling my life with laughter, warmth, and love. I can’t wait to celebrate many more birthdays with you. 
+
+You are my favorite person in the whole universe 🌙✨`;
+    let i = 0;
+    const speed = 55;  // milliseconds per character
+
+    function typeWriter() {
+      if (i < text.length) {
+        document.getElementById("message").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      } else {
+        // remove cursor when finished
+        document.getElementById("message").style.borderRight = "none";
+      }
+    }
+
+    window.onload = () => {
+      typeWriter();
+    };
+  </script>
+</body>
+</html>
