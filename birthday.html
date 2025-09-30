@@ -5,7 +5,6 @@
   <title>Happy Birthday My Love</title>
   <style>
     body {
-      margin: 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,38 +15,16 @@
       padding: 1em;
       text-align: center;
       color: #333;
-      overflow: hidden;
     }
-
     #message {
-      position: relative;
-      z-index: 2;
       border-right: 2px solid #ff6699;
       white-space: pre-wrap;
       overflow: hidden;
       max-width: 600px;
       line-height: 1.6;
-      background: rgba(255, 255, 255, 0.8);
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
-
-    /* Falling animation */
-    .falling {
-      position: absolute;
-      top: -50px;
-      font-size: 1.5rem;
-      opacity: 0.8;
-      animation: fall linear infinite;
-      z-index: 1;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0.3;
-      }
+    .heart {
+      color: #ff3366;
     }
   </style>
 </head>
@@ -55,7 +32,6 @@
   <div id="message"></div>
 
   <script>
-    // Typewriter effect
     const text = `Happy Birthday my love 💖
 
 Every day with you feels like a gift, but today is extra special because it's the day the world got you. 
@@ -72,32 +48,14 @@ You are my favorite person in the whole universe 🌙✨`;
         i++;
         setTimeout(typeWriter, speed);
       } else {
+        // remove cursor when finished
         document.getElementById("message").style.borderRight = "none";
       }
     }
 
     window.onload = () => {
       typeWriter();
-      createFallingEmojis();
     };
-
-    // Falling stars and flowers
-    const emojis = ["🌸", "🌹", "🌺", "🌼", "✨", "⭐"];
-    function createFallingEmojis() {
-      setInterval(() => {
-        const emoji = document.createElement("div");
-        emoji.classList.add("falling");
-        emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        emoji.style.left = Math.random() * 100 + "vw";
-        emoji.style.animationDuration = 5 + Math.random() * 5 + "s";
-        document.body.appendChild(emoji);
-
-        // Remove after animation
-        setTimeout(() => {
-          emoji.remove();
-        }, 10000);
-      }, 500);
-    }
   </script>
 </body>
 </html>
