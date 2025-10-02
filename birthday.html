@@ -1,75 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
   <title>Happy Birthday My Love</title>
   <style>
-    :root { --accent: #ff6699; --card-bg: rgba(255,255,255,0.94); }
-    html, body { height: 100%; margin: 0; }
     body {
       display: flex;
-      align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      padding: 1.5rem;
-      background: linear-gradient(135deg,#ffe6f0,#fff 60%);
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffe6f0, #fff);
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      color: #222;
+      font-size: 1.4rem;
+      padding: 1em;
+      text-align: center;
+      color: #333;
     }
-
     #message {
-      border-right: 2px solid var(--accent);
+      border-right: 2px solid #ff6699;
       white-space: pre-wrap;
       overflow: hidden;
-      max-width: 680px;
+      max-width: 600px;
       line-height: 1.6;
-      background: var(--card-bg);
-      padding: 26px;
-      border-radius: 16px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.11);
-      font-size: 1.15rem;
-      text-align: center;
     }
-
-    @media (max-width: 420px) {
-      #message { font-size: 1rem; padding: 20px; max-width: 92vw; }
+    .heart {
+      color: #ff3366;
     }
   </style>
 </head>
 <body>
-  <div id="message" aria-live="polite"></div>
+  <div id="message"></div>
 
   <script>
-    // Full message (English + Bisaya)
     const text = `Happy Birthday my love 💖
 
-Every day with you feels like a gift, but today is extra special because it's the day the world got you.
+Every day with you feels like a gift, but today is extra special because it's the day the world got you. 
 
-Thank you for filling my life with laughter, warmth, and love. I can’t wait to celebrate many more birthdays with you.
+Thank you for filling my life with laughter, warmth, and love. I can’t wait to celebrate many more birthdays with you. 
 
 You are my favorite person in the whole universe 🌙✨
 
 Gihigugma tika sa tibuok nakong kasingkasing ❤️
 (I love you with all my heart)`;
-
-    const speed = 55;               // ms per character (adjust if you want faster/slower)
-    const msgEl = document.getElementById('message');
+    
     let i = 0;
+    const speed = 55;  // milliseconds per character
 
     function typeWriter() {
-      if (i <= text.length) {
-        // Use textContent to avoid HTML parsing issues; slice progressively
-        msgEl.textContent = text.slice(0, i);
+      if (i < text.length) {
+        document.getElementById("message").innerHTML += text.charAt(i);
         i++;
         setTimeout(typeWriter, speed);
       } else {
         // remove cursor when finished
-        msgEl.style.borderRight = 'none';
+        document.getElementById("message").style.borderRight = "none";
       }
     }
 
-    window.addEventListener('load', () => typeWriter());
+    window.onload = () => {
+      typeWriter();
+    };
   </script>
 </body>
 </html>
