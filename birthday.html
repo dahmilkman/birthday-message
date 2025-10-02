@@ -1,99 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Happy Birthday My Love</title>
   <style>
+    :root { --accent: #ff6699; --card-bg: rgba(255,255,255,0.94); }
+    html, body { height: 100%; margin: 0; }
     body {
       display: flex;
-      justify-content: center;
       align-items: center;
-      height: 100vh;
-      background: linear-gradient(135deg, #ffe6f0, #fff);
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+      background: linear-gradient(135deg,#ffe6f0,#fff 60%);
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 1.4rem;
-      padding: 1em;
-      text-align: center;
-      color: #333;
+      color: #222;
     }
+
     #message {
-      border-right: 2px solid #ff6699;
+      border-right: 2px solid var(--accent);
       white-space: pre-wrap;
       overflow: hidden;
-      max-width: 600px;
+      max-width: 680px;
       line-height: 1.6;
+      background: var(--card-bg);
+      padding: 26px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.11);
+      font-size: 1.15rem;
+      text-align: center;
+    }
+
+    @media (max-width: 420px) {
+      #message { font-size: 1rem; padding: 20px; max-width: 92vw; }
     }
   </style>
 </head>
 <body>
-  <div id="message"></div>
+  <div id="message" aria-live="polite"></div>
 
   <script>
-    // Messages with a funny backspace part
-    const text = [
-      "Happy Birthday my love 💖\n\n",
-      "Every day with you feels like a gift, but today is extra special because it's the day the world got you.\n\n",
-      "Thank you for filling my life with laughter, warmth, and love.\n\n",
-      "I can’t wait to celebrate many more birthdays with you.\n\n",
-      "You are my favorite person in the whole universe 🌙✨\n\n",
-      // Funny part with backspace
-      "I was going to say you're cute... ",
-      "cutiieeee?? 🙈",
-      "           ", // <- backspaces this word
-      "but really, you're the MOST BEAUTIFUL 🌹\n\n",
-      // Sweet Bisaya line
-      "Gihigugma tika sa tibuok nakong kasingkasing ❤️ (I love you with all my heart)"
-    ];
+    // Full message (English + Bisaya)
+    const text = `Happy Birthday my love 💖
 
-    let i = 0;           // current text index
-    let j = 0;           // current character index
-    let speed = 55;      // typing speed
-    let isDeleting = false;
+Every day with you feels like a gift, but today is extra special because it's the day the world got you.
+
+Thank you for filling my life with laughter, warmth, and love. I can’t wait to celebrate many more birthdays with you.
+
+You are my favorite person in the whole universe 🌙✨
+
+Gihigugma tika sa tibuok nakong kasingkasing ❤️
+(I love you with all my heart)`;
+
+    const speed = 55;               // ms per character (adjust if you want faster/slower)
+    const msgEl = document.getElementById('message');
+    let i = 0;
 
     function typeWriter() {
-      const msgEl = document.getElementById("message");
-
-      if (i < text.length) {
-        if (!isDeleting) {
-          // typing forward
-          if (j < text[i].length) {
-            msgEl.innerHTML += text[i].charAt(j);
-            j++;
-            setTimeout(typeWriter, speed);
-          } else {
-            // move to next string
-            i++;
-            j = 0;
-
-            // if this line is spaces -> trigger delete effect
-            if (text[i-1].trim() === "") {
-              isDeleting = true;
-              setTimeout(typeWriter, 600); // pause before deleting
-            } else {
-              setTimeout(typeWriter, 800);
-            }
-          }
-        } else {
-          // deleting text (simulate backspace)
-          if (msgEl.innerHTML.endsWith(" ")) {
-            msgEl.innerHTML = msgEl.innerHTML.slice(0, -1);
-            setTimeout(typeWriter, 40);
-          } else {
-            // finished deleting → continue forward
-            isDeleting = false;
-            i++;
-            setTimeout(typeWriter, speed);
-          }
-        }
+      if (i <= text.length) {
+        // Use textContent to avoid HTML parsing issues; slice progressively
+        msgEl.textContent = text.slice(0, i);
+        i++;
+        setTimeout(typeWriter, speed);
       } else {
-        // Done typing
-        msgEl.style.borderRight = "none";
+        // remove cursor when finished
+        msgEl.style.borderRight = 'none';
       }
     }
 
-    window.onload = () => {
-      typeWriter();
-    };
+    window.addEventListener('load', () => typeWriter());
   </script>
 </body>
 </html>
