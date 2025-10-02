@@ -45,15 +45,15 @@ Gihigugma tika sa tibuok nakong kasingkasing ❤️
     
     let i = 0;
     const speed = 55;  // milliseconds per character
+    const msgEl = document.getElementById("message");
 
     function typeWriter() {
       if (i < text.length) {
-        document.getElementById("message").innerHTML += text.charAt(i);
+        msgEl.textContent += text.charAt(i);  // <- use textContent here
         i++;
         setTimeout(typeWriter, speed);
       } else {
-        // remove cursor when finished
-        document.getElementById("message").style.borderRight = "none";
+        msgEl.style.borderRight = "none"; // remove cursor
       }
     }
 
