@@ -15,6 +15,7 @@
       padding: 1em;
       text-align: center;
       color: #333;
+      flex-direction: column;
     }
     #message {
       border-right: 2px solid #ff6699;
@@ -22,14 +23,33 @@
       overflow: hidden;
       max-width: 600px;
       line-height: 1.6;
+      margin-bottom: 20px;
     }
-    .heart {
+    .extra {
+      display: none;
+      margin-top: 20px;
+    }
+    .extra img {
+      width: 150px;
+      margin: 10px 0;
+    }
+    a {
       color: #ff3366;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <div id="message"></div>
+  <div class="extra" id="extra">
+    <p>Here’s something special for you 💕</p>
+    <img src="birthday_qr.png" alt="QR Code to Song">
+    <p><a href="https://www.youtube.com/watch?v=GMBSruqyXuI&list=RDGMBSruqyXuI" target="_blank">🎶 Play our song</a></p>
+  </div>
 
   <script>
     const text = `Happy Birthday my love 💖
@@ -43,16 +63,17 @@ You are my favorite person in the whole universe 🌙✨
 Gihigugma tika sa tibuok nakong kasingkasing ❤️`;
     
     let i = 0;
-    const speed = 55;  // milliseconds per character
+    const speed = 55;  
     const msgEl = document.getElementById("message");
 
     function typeWriter() {
       if (i < text.length) {
-        msgEl.textContent += text.charAt(i);  // <- use textContent here
+        msgEl.textContent += text.charAt(i);
         i++;
         setTimeout(typeWriter, speed);
       } else {
-        msgEl.style.borderRight = "none"; // remove cursor
+        msgEl.style.borderRight = "none"; 
+        document.getElementById("extra").style.display = "block"; // show QR + link
       }
     }
 
